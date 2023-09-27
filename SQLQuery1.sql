@@ -86,7 +86,11 @@ select Sector,count(Sector) cnt from project..data$ group by Sector order by cnt
 
 select Partners,count(Partners) cnt from project..data$ where Partners!= '-' group by Partners order by cnt desc
 
---making the matrix
+-- Ashneer ( Total deals present in)
+
+Select AshneerAmountInvested From project..data$ where AshneerAmountInvested is not null
+
+--making the matrix - Ashneer Grover
 
 select 'Ashneer' as keyy Count(AshneerAmountinvested) from project..data$ where AshneerAmountinvested is not null
 
@@ -126,5 +130,112 @@ select c.* from
 from project..data$) c
 
 where c.rnk=1
+
+-- Namita Thappar ( Deals present in )
+
+Select NamitaAmountinvested From project..data$ where NamitaAmountInvested is not null
+
+-- Matrix 
+
+select m.keyy,m.total_deals_present,m.total_deals,n.total_amount_invested,n.avg_equity_taken from
+
+(select a.keyy,a.total_deals_present,b.total_deals from(
+
+select 'Namita' as keyy,Count(NamitaAmountinvested) total_deals_present from project..data$ where NamitaAmountinvested is not null) a
+
+inner join(
+select 'Namita' as keyy,Count(NamitaAmountinvested) total_deals from project..data$ 
+where NamitaAmountinvested is not null AND NamitaAmountinvested!= 0) b
+
+on a.keyy=b.keyy) m
+
+inner join
+
+
+(SELECT 'Namita' as keyy, SUM(C.NamitaAmountinvested) total_amount_invested, 
+AVG(C.[NamitaEquityTaken%]) avg_equity_taken
+From( select * From project..data$ where [NamitaEquityTaken%]!=0 AND [NamitaEquityTaken%] IS NOT NULL) C) n
+
+on m.keyy=n.keyy
+
+-- Anupam Mittal Matrix
+
+select m.keyy,m.total_deals_present,m.total_deals,n.total_amount_invested,n.avg_equity_taken from
+
+(select a.keyy,a.total_deals_present,b.total_deals from(
+
+select 'Anupam' as keyy,Count(AnupamAmountInvested) total_deals_present from project..data$ where AnupamAmountInvested is not null) a
+
+inner join(
+select 'Anupam' as keyy,Count(AnupamAmountInvested) total_deals from project..data$ 
+where AnupamAmountInvested is not null AND AnupamAmountInvested!= 0) b
+
+on a.keyy=b.keyy) m
+
+inner join
+
+
+(SELECT 'Anupam' as keyy, SUM(C.AnupamAmountInvested) total_amount_invested, 
+AVG(C.[AnupamEquityTaken%]) avg_equity_taken
+From( select * From project..data$ where [AnupamEquityTaken%]!=0 AND [AnupamEquityTaken%] IS NOT NULL) C) n
+
+on m.keyy=n.keyy
+
+-- Total deals present - (Vineeta)
+
+Select VineetaAmountInvested From project..data$ where VineetaAmountInvested is not null
+
+-- Vineeta Matrix
+
+select m.keyy,m.total_deals_present,m.total_deals,n.total_amount_invested,n.avg_equity_taken from
+
+(select a.keyy,a.total_deals_present,b.total_deals from(
+
+select 'Vineeta' as keyy,Count(VineetaAmountInvested) total_deals_present from project..data$ where VineetaAmountInvested is not null) a
+
+inner join(
+select 'Vineeta' as keyy,Count(VineetaAmountInvested) total_deals from project..data$ 
+where VineetaAmountInvested is not null AND VineetaAmountInvested!= 0) b
+
+on a.keyy=b.keyy) m
+
+inner join
+
+
+(SELECT 'Vineeta' as keyy, SUM(C.VineetaAmountInvested) total_amount_invested, 
+AVG(C.[VineetaEquityTaken%]) avg_equity_taken
+From( select * From project..data$ where [VineetaEquityTaken%]!=0 AND [VineetaEquityTaken%] IS NOT NULL) C) n
+
+on m.keyy=n.keyy
+
+-- Aman	(Total deals present in)
+
+Select AmanAmountInvested From project..data$ where AmanAmountInvested is not null
+
+-- Aman Matrix
+
+select m.keyy,m.total_deals_present,m.total_deals,n.total_amount_invested,n.avg_equity_taken from
+
+(select a.keyy,a.total_deals_present,b.total_deals from(
+
+select 'Aman' as keyy,Count(AmanAmountInvested) total_deals_present from project..data$ where AmanAmountInvested is not null) a
+
+inner join(
+select 'Aman' as keyy,Count(AmanAmountInvested) total_deals from project..data$ 
+where AmanAmountInvested is not null AND AmanAmountInvested!= 0) b
+
+on a.keyy=b.keyy) m
+
+inner join
+
+
+(SELECT 'Aman' as keyy, SUM(C.AmanAmountInvested) total_amount_invested, 
+AVG(C.[AmanEquityTaken%]) avg_equity_taken
+From( select * From project..data$ where [AmanEquityTaken%]!=0 AND [AmanEquityTaken%] IS NOT NULL) C) n
+
+on m.keyy=n.keyy
+
+
+
 
 
